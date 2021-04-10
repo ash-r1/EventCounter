@@ -76,6 +76,4 @@ test:
 #
 production:
   <<: *default
-  database: EventCounter_production
-  username: EventCounter
-  password: <%= ENV['EVENTCOUNTER_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
