@@ -1,6 +1,6 @@
 class RootController < ApplicationController
   def show
-    remote_ip = if ENV['CDN_TOKEN'].present? && request.env['CDN_TOKEN'] == ENV['CDN_TOKEN']
+    remote_ip = if ENV['CDN_TOKEN'].present? && request.env['HTTP_X_CDN_TOKEN'] == ENV['CDN_TOKEN']
       request.env['HTTP_X_FORWARDED_FOR']
     else
       request.remote_ip
