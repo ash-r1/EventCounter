@@ -8,16 +8,44 @@ import React, {
 } from 'react';
 import { createConsumer } from '@rails/actioncable';
 
-interface Props {
-  count: string;
-}
+const Counter: React.FC= () => {
+  const [number, setNumber] = useState(-1);
+  const consumer = useMemo(() => createConsumer(), []);
+  const [connected, setConnected] = useState(false);
 
+  const sub = useMemo(() => {
+    return consumer.subscriptions.create(
+      {
+        channel: 'CounterChannel',
+      },
+      {
+        connected() {
+          setConnected(true);
+        },
+        disconnected() {
+          setConnected(false);
+        },
+        received(data) {
+          console.log(data)
+          setNumber(data)
+        },
+      }
+    );
+  }, []);
 
-const Chat: React.FC<Props> = (props) => {
-  const count = parseInt(props.count)
+  useEffect(() => {
+    return () => {
+      consumer.subscriptions.remove(sub);
+    };
+  }, []);
+
+  if(!connected){
+    return <p>connecting...</p>
+  }
+
   return (
-    <p>{count}</p>
+    <p className="counter">{number}</p>
   )
 };
 
-export default Chat;
+export default Counter;
