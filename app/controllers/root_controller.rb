@@ -12,6 +12,6 @@ class RootController < ApplicationController
       Log.count,
     )
 
-    redirect_to "/poster.png"
+    redirect_to "https://sw2021.utk-g.jp/poster.jpg"
   end
 end
