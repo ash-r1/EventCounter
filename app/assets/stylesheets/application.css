@@ -16,6 +16,12 @@
 
 
 .counter {
-  font-size: 60pt;
+  font-size: 72pt;
   text-align: center;
 }
+
+.qr-wrapper {
+  text-align: center;
+}
+
+
